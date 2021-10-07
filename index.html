@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p class="trans">TRANS<span class="transNum">9997</span></p>
+    <button class="page1CancelElem">page1CancelElem</button>
+
+    <script>
+      // 🍀js10 , js1006
+
+      const page1CancelElem = document.querySelector(".page1CancelElem");
+
+      let transNum = document.querySelector(".transNum");
+      let n = transNum.textContent;
+      let n_num = parseInt(n);
+
+      page1CancelElem.addEventListener("click", () => {
+        transNumHandler();
+
+        let itemsRemoveElem = document.querySelectorAll(".items-remove");
+        for (let i = 0; i < itemsRemoveElem.length; i++) {
+          itemsRemoveElem[i].parentNode.remove();
+        }
+
+        grandTaxPriceElem.innerHTML = "0";
+        grandTotalPriceElem.innerHTML = "0";
+      });
+
+      function transNumHandler() {
+        /*   (🍉original way) , 1 10 100 9999
+            n_num++;
+            transNum.innerHTML=`${n_num}`;   
+
+            if (n_num >= 9999 ) {
+                n_num = 0;        
+            }  
+       */
+
+        //🍉way2. trans-number++; , 0001 0010 0100 9999
+
+        n_num++;
+
+        Number.prototype.pad = function (size) {
+          var s = String(this);
+          while (s.length < (size || 2)) {
+            s = "0" + s;
+          }
+          return s;
+        };
+
+        transNum.innerHTML = `${n_num.pad(4)}`;
+
+        if (n_num >= 9999) {
+          n_num = 0;
+        }
+      }
+    </script>
+  </body>
+</html>
